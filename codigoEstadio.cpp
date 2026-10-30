@@ -240,8 +240,8 @@ int main()
 
     int opcion;
 
-    do
-    {
+        do {
+
         // MENU PRINCIPAL
 
         cout << "\n================================\n";
@@ -263,54 +263,75 @@ int main()
 
         cout << endl;
 
-        switch (opcion)
-        {
-        case 1:
-            registrarEspectador();
-            break;
+        switch (opcion) {
 
-        case 2:
-            mostrarEspectadores();
-            break;
+            case 1:
+                registrarEspectador();
+                break;
 
-        case 3:
-            eliminarEspectador();
-            break;
+            case 2:
+                mostrarEspectadores();
+                break;
 
-        case 4:
-            cambiarEstado();
-            break;
+            case 3:
+                eliminarEspectador();
+                break;
 
-        case 5:
-            agregarAFila();
-            break;
+            case 4:
+                cambiarEstado();
+                break;
 
-        case 6:
-            quitarDeFila();
-            break;
+            case 5:
+                agregarAFila();
+                break;
 
-        case 7:
-            mostrarFilas();
-            break;
+            case 6:
+                quitarDeFila();
+                break;
 
-        case 8:
-            mostrarHistorial();
-            break;
+            case 7:
+                mostrarFilas();
+                break;
 
-        case 9:
-            quitarUltimaOperacion();
-            break;
+            case 8:
+                mostrarHistorial();
+                break;
 
-        case 0:
-            cout << "Saliendo del sistema...\n";
-            break;
+            case 9:
+                quitarUltimaOperacion();
+                break;
 
-        default:
-            cout << "Opcion incorrecta. Intente nuevamente.\n";
+            case 0:
+                cout << "Saliendo del sistema...\n";
+                break;
+
+            default:
+                cout << "Opcion incorrecta. Intente nuevamente.\n";
         }
+
     } while (opcion != 0);
 
-    liberarTodo();
+    // LIBERAR MEMORIA
+
+    while (cabeza != NULL) {
+        NodoEspectador* aux = cabeza;
+        cabeza = cabeza->siguiente;
+        delete aux;
+    }
+
+    while (historial != NULL) {
+        NodoHistorial* aux = historial;
+        historial = historial->siguiente;
+        delete aux;
+    }
+
+    for (int i = 1; i <= NUM_PUERTAS; i++) {
+        while (frente[i] != NULL) {
+            NodoCola* aux = frente[i];
+            frente[i] = frente[i]->siguiente;
+            delete aux;
+        }
+    }
 
     return 0;
 }
